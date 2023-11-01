@@ -1,1 +1,4 @@
-
+openapi: 3.1.0
+info:
+  title: Sortery
+  version: 1.0.0
