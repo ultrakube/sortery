@@ -1,1 +1,18 @@
+apiVersion: 2
+name: "Sortery"
+version: 0.0.1
 
+
+dependencies: # A list of the chart requirements (optional)
+- name: 
+  version: 
+  repository: 
+  alias:
+- name: 
+  version: 
+  repository: 
+  alias:
+- name: 
+  version: 
+  repository: 
+  alias:
