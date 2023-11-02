@@ -47,6 +47,9 @@ helm install auth oci://registry-1.docker.io/bitnamicharts/keycloak -n keycloak 
   --set auth.adminUser=${KC_ADMIN_USER} \
   --set auth.adminPassword=${KC_ADMIN_PASSWORD} \
   --set proxy=edge
+unset KC_ADMIN_USER
+unset KC_ADMIN_PASSWORD
+
 
 # APISIX routes - Keycloak
 #--------------------------------------------------------------
@@ -103,9 +106,10 @@ KC_URI=
 KC_REALM=apisix
 KC_CLIENT_ID=apisix1
 KC_CLIENT_SECRET=
-KC_DISCOVERY_ENDPOINT=${URI}/realms/apisix/.well-known/openid-configuration
-KC_TOKEN_ENDPOINT=${URI}/realms/apisix/protocol/openid-connect/token
-KC_INTRO_ENDPOINT=${URI}/realms/apisix/protocol/openid-connect/token/introspect
+KC_DISCOVERY_ENDPOINT=${KC_URI}/realms/apisix/.well-known/openid-configuration
+KC_TOKEN_ENDPOINT=${KC_URI}/realms/apisix/protocol/openid-connect/token
+KC_INTRO_ENDPOINT=${KC_URI}/realms/apisix/protocol/openid-connect/token/introspect
+KC_REDIRECT_URI=/anything/redirect_uri
 KC_LOGOUT=/auth/logout
 KC_POST_LOGOUT=/anything/echo
 
@@ -138,8 +142,9 @@ spec:
         realm: ${KC_REALM}
         unauth_action: "auth" # "deny" # "pass"
         set_access_token_header: false
-        redirect_uri: /anything/redirect_uri
+        redirect_uri: ${KC_REDIRECT_URI}
         logout_path: ${KC_LOGOUT}
         post_logout_redirect_uri: ${KC_POST_LOGOUT}
 EOF
 
+unset KC_CLIENT_SECRET
