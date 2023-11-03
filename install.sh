@@ -85,6 +85,7 @@ spec:
   - type: Domain
     name: httpbin.org
 EOF
+
 kubectl apply -f - <<EOF
 apiVersion: apisix.apache.org/v2
 kind: ApisixRoute
